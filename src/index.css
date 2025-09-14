@@ -152,7 +152,7 @@
 
   .btn-secondary {
     @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium;
-    @apply hover:bg-sand-dark hover:scale-102;
+    @apply hover:bg-sand-dark hover:scale-105;
     @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
     @apply transition-all duration-300 ease-out;
     @apply shadow-soft;
