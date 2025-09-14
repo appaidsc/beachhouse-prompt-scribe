@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* The Haven - Modern Beach House Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Beach House Color Palette */
+    --background: 35 25% 98%;
+    --foreground: 215 25% 27%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --sand-light: 35 25% 98%;
+    --sand: 35 15% 92%;
+    --sand-dark: 35 12% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --ocean-light: 195 55% 85%;
+    --ocean: 195 65% 45%;
+    --ocean-deep: 195 75% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --driftwood: 25 15% 65%;
+    --driftwood-dark: 25 20% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --linen: 35 20% 95%;
+    --oak: 25 25% 75%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --primary: 195 65% 45%;
+    --primary-foreground: 35 25% 98%;
+    --primary-glow: 195 55% 85%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 15% 92%;
+    --secondary-foreground: 215 25% 27%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 35 12% 85%;
+    --muted-foreground: 215 15% 45%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --accent: 25 25% 75%;
+    --accent-foreground: 215 25% 27%;
 
-    --radius: 0.5rem;
+    --card: 35 25% 98%;
+    --card-foreground: 215 25% 27%;
+
+    --border: 35 12% 85%;
+    --input: 35 20% 95%;
+    --ring: 195 65% 45%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(195 55% 85% / 0.9), hsl(195 65% 45% / 0.7));
+    --gradient-ocean: linear-gradient(180deg, hsl(195 55% 85%), hsl(195 65% 45%));
+    --gradient-sand: linear-gradient(180deg, hsl(35 25% 98%), hsl(35 15% 92%));
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(215 25% 27% / 0.1) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 6px -1px hsl(195 65% 45% / 0.1), 0 2px 4px -1px hsl(195 65% 45% / 0.06);
+    --shadow-ocean: 0 10px 25px -3px hsl(195 65% 45% / 0.2), 0 4px 6px -2px hsl(195 65% 45% / 0.05);
+    --shadow-float: 0 20px 25px -5px hsl(195 65% 45% / 0.1), 0 10px 10px -5px hsl(195 65% 45% / 0.04);
+
+    /* Typography */
+    --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +127,145 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero {
+    @apply bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium;
+    @apply hover:bg-ocean-deep hover:scale-105;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    @apply transition-all duration-300 ease-out;
+    @apply shadow-ocean;
+  }
+
+  .btn-hero:hover {
+    box-shadow: var(--shadow-float);
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-sand-dark hover:scale-102;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    @apply transition-all duration-300 ease-out;
+    @apply shadow-soft;
+  }
+
+  /* Card Components */
+  .card-ocean {
+    @apply bg-card border border-border rounded-xl;
+    @apply shadow-soft backdrop-blur-sm;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--linen)) 100%);
+  }
+
+  .card-floating {
+    @apply card-ocean hover:shadow-float;
+    @apply transition-all duration-500 ease-out hover:-translate-y-2;
+  }
+
+  /* Text Animations */
+  .text-shimmer {
+    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--ocean)), hsl(var(--foreground)));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Interactive Elements */
+  .interactive-map-pin {
+    @apply cursor-pointer transform transition-all duration-300;
+    @apply hover:scale-110 hover:text-primary;
+  }
+
+  .booking-step {
+    @apply opacity-50 pointer-events-none;
+  }
+
+  .booking-step.active {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  /* Gradient Overlays */
+  .hero-overlay {
+    background: var(--gradient-hero);
+    backdrop-filter: blur(1px);
+  }
+
+  .ocean-gradient {
+    background: var(--gradient-ocean);
+  }
+
+  .sand-gradient {
+    background: var(--gradient-sand);
+  }
+
+  /* Image Effects */
+  .image-hover {
+    @apply transition-all duration-500 ease-out;
+    @apply hover:scale-105 hover:brightness-110;
+  }
+
+  /* Micro-interactions */
+  .glow-on-hover {
+    @apply relative overflow-hidden;
+  }
+
+  .glow-on-hover::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: radial-gradient(circle at center, hsl(var(--primary-glow) / 0.3) 0%, transparent 70%);
+  }
+
+  .glow-on-hover:hover::before {
+    @apply opacity-100;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
   }
 }
